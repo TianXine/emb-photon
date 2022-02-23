@@ -47,6 +47,19 @@
 #define GPIOF_AFRL *(unsigned int *)(GPIOF_BASE+0x20)
 #define GPIOF_AFRH *(unsigned int *)(GPIOF_BASE+0x24)
 
+/* GPIO G buffers */
+#define GPIOG_MODER *(unsigned int *)(GPIOG_BASE+0x00)
+#define GPIOG_OTYPER *(unsigned int *)(GPIOG_BASE+0x04)
+#define GPIOG_OSPEEDR *(unsigned int *)(GPIOG_BASE+0x08)
+#define GPIOG_PUPDR *(unsigned int *)(GPIOG_BASE+0x0C)
+#define GPIOG_IDR *(unsigned int *)(GPIOG_BASE+0x10)
+#define GPIOG_ODR *(unsigned int *)(GPIOG_BASE+0x14)
+#define GPIOG_BSRR *(unsigned int *)(GPIOG_BASE+0x18)
+#define GPIOG_LCKR *(unsigned int *)(GPIOG_BASE+0x1C)
+#define GPIOG_AFRL *(unsigned int *)(GPIOG_BASE+0x20)
+#define GPIOG_AFRH *(unsigned int *)(GPIOG_BASE+0x24)
+
+
 #define RCC_BASE (AHB1PERIPH_BASE + 0x3800)
 #define RCC_AHB1ENR *(unsigned int *)(RCC_BASE + 0x30)
 
