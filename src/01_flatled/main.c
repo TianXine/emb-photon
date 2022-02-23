@@ -39,3 +39,13 @@ int main() {
   }
   return 0;
 }
+
+/**
+ * @brief reset handler
+ * @note overwrite the Reset_Handler in assembly.
+ * */
+void Reset_Handler()
+{
+	SystemInit();
+	main();
+}
