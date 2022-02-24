@@ -7,6 +7,12 @@
 #    Modified : 2022-02-18 21:00:25
 # ==================================================
 
+## Chip and board settings
+OPENOCD_INTERFACE = interface/cmsis-dap.cfg # interface/cmsis-dap.cfg
+OPENOCD_TARGET = target/stm32f4x.cfg # target/stm32f4x.cfg
+OPENOCD_FLASH_ORIG = 0x08000000 # STM32F407ZE
+WORKDIR = $(shell pwd)
+
 # Tools
 CC=arm-none-eabi-gcc
 CXX=arm-none-eabi-g++
@@ -29,7 +35,7 @@ HEXTARGET=$(TARGET).hex
 BINTARGET=$(TARGET).bin
 OBJS=main.o startup_stm32f4xx.o
 
-.PHONY: all
+.PHONY: all download
 all: $(HEXTARGET) $(BINTARGET)
 
 $(TARGET) : $(OBJS)
@@ -41,6 +47,8 @@ $(HEXTARGET) : $(TARGET)
 $(BINTARGET) : $(TARGET)
 	$(OBJCOPY) -O binary $< $@
 
+download : $(BINTARGET)
+	openocd -f $(OPENOCD_INTERFACE) -f $(OPENOCD_TARGET) -c init -c halt -c "flash write_image erase $(WORKDIR)/$(BINTARGET) $(OPENOCD_FLASH_ORIG)" -c halt -c reset -c shutdown
 ## Clean
 .PHONY: clean
 clean:
