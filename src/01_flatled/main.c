@@ -21,6 +21,9 @@ typedef unsigned int u32;
 
 void SystemInit()
 {
+    // Enable RCC for GPIOF
+    RCC_AHB1ENR |= (0x01 << 5 | 0x01 << 6);
+    GPIOF_MODER      = (1 << (2 * 9) | 1 << (2 * 10)); // set GPIOF to general output for pin 9 and pin 10
 }
 
 static void delay(u32 i)
@@ -31,22 +34,18 @@ static void delay(u32 i)
 
 int main()
 {
-    // Enable RCC for GPIOF
-    RCC_AHB1ENR |= (0x01 << 5 | 0x01 << 6);
-    GPIOF_MODER      = (1 << (2 * 9) | 1 << (2 * 10)); // set GPIOF to general output
-    GPIOG_MODER      = (1 << (2 * 9) | 1 << (2 * 10)); // set GPIOG to general output
     char keepRunning = 1;
     while (keepRunning) {
-        // LED0
+        // LED0 on pin 9
         GPIOF_BSRR = (1 << (16 + 9));
         delay(0xFFFFF);
         GPIOF_BSRR = (1 << 9);
         delay(0xFFFFF);
 
-        // LED1
-        GPIOG_BSRR = (1 << (16 + 10));
+        // LED1 on pin 10
+        GPIOF_BSRR = (1 << (16 + 10));
         delay(0xFFFFF);
-        GPIOG_BSRR = (1 << 10);
+        GPIOF_BSRR = (1 << 10);
         delay(0xFFFFF);
     }
     return 0;
