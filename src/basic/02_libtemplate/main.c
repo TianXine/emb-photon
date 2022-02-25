@@ -1,0 +1,56 @@
+/*
+ * =====================================================================================
+ *
+ *       Filename:  main.c
+ *
+ *    Description:  main
+ *
+ *        Version:  1.0
+ *        Created:  02/20/2022 03:29:35 PM
+ *       Revision:  none
+ *
+ *         Author:  xine (xine), xinedev@outlook.com
+ *   Organization:  xinedev
+ *
+ * =====================================================================================
+ */
+
+#include "stm32f4xx_gpio.h"
+#include "stm32f4xx_rcc.h"
+
+static void delay(u32 i) {
+  while (i--) {
+    ;
+  }
+}
+
+void ledInit(void) {
+  GPIO_InitTypeDef GPIO_InitStructure;
+
+  RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOF, ENABLE);
+
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9 | GPIO_Pin_10;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
+  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+  GPIO_Init(GPIOF, &GPIO_InitStructure);
+}
+
+int main() {
+  ledInit();
+  while (1) {
+    GPIO_ResetBits(GPIOF, GPIO_Pin_9);
+    delay(0x0ffffff);
+    GPIO_SetBits(GPIOF, GPIO_Pin_9);
+    delay(0x0ffffff);
+
+    //GPIO_ResetBits(GPIOF, GPIO_Pin_10);
+    //delay(0x0ffffff);
+    //GPIO_SetBits(GPIOF, GPIO_Pin_10);
+    //delay(0x0ffffff);
+  }
+}
+void Reset_Handler(void)
+{
+	main();
+}

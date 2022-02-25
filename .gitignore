@@ -51,3 +51,10 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# tool directories
+.vs
+.vscode
+build
+[Dd]ebug
+[Rr]elease
