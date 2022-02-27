@@ -26,11 +26,11 @@ set(CMAKE_ASM_COMPILER ${CROSS_COMPILER_PREFIX}gcc)
 set(OBJCOPY ${CROSS_COMPILER_PREFIX}objcopy)
 #set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 
-## Options for compiler and linker 
-set(MPUFLAGS "-mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16")
-set(CMAKE_C_FLAGS "-Os -s -Wall -Werror ${MPUFLAGS}")
-set(CMAKE_CXX_FLAGS "-Wall -Werror ${MPUFLAGS}")
-set(LINKER_FLAGS "-T${CMAKE_CURRENT_SOURCE_DIR}/stm32f4_flash.ld -u Reset_Handler -Wl,-Map=${CMAKE_PROJECT_NAME}.map,--cref -Wl,--gc-sections --specs=nano.specs --specs=nosys.specs")
+## Options for compiler and linker
+set(MPU_FLAGS "-mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16")
+set(CMAKE_C_FLAGS "-Os -s -Wall -Werror ${MPU_FLAGS}")
+set(CMAKE_CXX_FLAGS "-Wall -Werror ${MPU_FLAGS}")
+set(LINKER_FLAGS "-T${CMAKE_CURRENT_SOURCE_DIR}/stm32f4_flash.ld -u Reset_Handler -Wl,-Map=${CMAKE_PROJECT_NAME}.map,--cref -Wl,--gc-sections --specs=nano.specs --specs=nosys.specs ${MPU_FLAGS}")
 
 ## StdPeriph Driver
 set(STM32F4XX_STDPERPH_DRIVER_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../library/STM32F4xx_StdPeriph_Driver")
